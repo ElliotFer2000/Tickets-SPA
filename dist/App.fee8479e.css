@@ -1,0 +1,66 @@
+:root{
+    --primary: navy;
+    --secondary: crimson;
+    --accent: yellow;
+    --light: #fff;
+
+    --link-font-size: 24px;
+}
+
+h1{
+    margin: 0;
+    font-size: 50px;
+    
+}
+
+h1,p{
+   text-align: center;
+}
+
+p{
+    margin-bottom: 15px;
+    margin-top: 15px;
+    font-size: 34px;
+}
+
+td,th{
+    padding: 9px;
+}
+.Nav{
+    margin-bottom: 15px;
+    margin-top: 15px;
+    height: 52px;
+   
+}
+.Nav__Link--Active{
+    border-style: dashed;
+    border-width: 5px;
+    border-color: var(--primary);
+    padding: 15px;
+}
+
+.Nav__Link{
+    color: var(--primary);
+    font-size: var(--link-font-size);
+    margin-right: 15px;
+    
+}
+
+.Nav__Links{
+    
+    margin: 0;
+    height: 100%;
+    list-style: none;
+    padding: 0;
+    display: flex;
+        align-items: center;
+       
+}
+
+.DataTable{
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 15px;
+}
+
+/*# sourceMappingURL=/App.fee8479e.css.map */
