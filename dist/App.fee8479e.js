@@ -34741,7 +34741,11 @@ var Nav = /*#__PURE__*/function (_React$Component) {
         to: "/Sorteos",
         className: "Nav__Link",
         activeClassName: "Nav__Link--Active"
-      }, "Sorteos"))));
+      }, "Sorteos")), /*#__PURE__*/_react.default.createElement("li", null, /*#__PURE__*/_react.default.createElement(_reactRouterDom.NavLink, {
+        to: "/BuySorteos",
+        className: "Nav__Link",
+        activeClassName: "Nav__Link--Active"
+      }, "Comprar sorteo"))));
     }
   }]);
 
@@ -36591,13 +36595,287 @@ module.exports.default = axios;
 
 },{"./utils":"node_modules/axios/lib/utils.js","./helpers/bind":"node_modules/axios/lib/helpers/bind.js","./core/Axios":"node_modules/axios/lib/core/Axios.js","./core/mergeConfig":"node_modules/axios/lib/core/mergeConfig.js","./defaults":"node_modules/axios/lib/defaults.js","./cancel/Cancel":"node_modules/axios/lib/cancel/Cancel.js","./cancel/CancelToken":"node_modules/axios/lib/cancel/CancelToken.js","./cancel/isCancel":"node_modules/axios/lib/cancel/isCancel.js","./helpers/spread":"node_modules/axios/lib/helpers/spread.js"}],"node_modules/axios/index.js":[function(require,module,exports) {
 module.exports = require('./lib/axios');
-},{"./lib/axios":"node_modules/axios/lib/axios.js"}],"js/repository/Usuarios.js":[function(require,module,exports) {
+},{"./lib/axios":"node_modules/axios/lib/axios.js"}],"js/repository/Sorteos.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.getSorteos = getSorteos;
+exports.postSorteo = postSorteo;
+
+var _axios = _interopRequireDefault(require("axios"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+var baseURL = "https://localhost:44324/api/Draws";
+
+function getSorteos() {
+  return _getSorteos.apply(this, arguments);
+}
+
+function _getSorteos() {
+  _getSorteos = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+    var draws;
+    return regeneratorRuntime.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            _context.next = 2;
+            return _axios.default.get(baseURL);
+
+          case 2:
+            draws = _context.sent;
+            return _context.abrupt("return", draws.data);
+
+          case 4:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee);
+  }));
+  return _getSorteos.apply(this, arguments);
+}
+
+function postSorteo(_x) {
+  return _postSorteo.apply(this, arguments);
+}
+
+function _postSorteo() {
+  _postSorteo = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(sorteo) {
+    var response;
+    return regeneratorRuntime.wrap(function _callee2$(_context2) {
+      while (1) {
+        switch (_context2.prev = _context2.next) {
+          case 0:
+            _context2.next = 2;
+            return _axios.default.post(baseURL, sorteo);
+
+          case 2:
+            response = _context2.sent;
+            return _context2.abrupt("return", response);
+
+          case 4:
+          case "end":
+            return _context2.stop();
+        }
+      }
+    }, _callee2);
+  }));
+  return _postSorteo.apply(this, arguments);
+}
+},{"axios":"node_modules/axios/index.js"}],"js/models/Sorteo.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+function Sorteo(date) {
+  this.date = date;
+}
+
+var _default = Sorteo;
+exports.default = _default;
+},{}],"js/components/DrawForm.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+var _Sorteo = _interopRequireDefault(require("../models/Sorteo"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function SubmitDraw(props) {
+  var postSorteo = props['postSorteo'];
+  var getSorteos = props['getSorteos'];
+  var refreshTable = props['refreshTable'];
+
+  function onSorteoPosted(response) {
+    if (response.status === 201) {
+      getSorteos().then(refreshTable).catch(function (err) {
+        console.log(err);
+      });
+    }
+  }
+
+  function onSubmitClick(event) {
+    if (fecha.value && hora.value) {
+      var sorteo = new _Sorteo.default(fecha.value + "T" + hora.value);
+      postSorteo(sorteo).then(onSorteoPosted).catch(function (err) {
+        console.log(err);
+      });
+    }
+  }
+
+  return /*#__PURE__*/_react.default.createElement("form", {
+    className: "usersSubmit"
+  }, /*#__PURE__*/_react.default.createElement("div", {
+    className: "usersSubmit__wrapper"
+  }, /*#__PURE__*/_react.default.createElement("label", {
+    htmlFor: "fecha"
+  }, "Fecha  (AAAA-mm-dd)"), /*#__PURE__*/_react.default.createElement("input", {
+    type: "text",
+    placeholder: "Fecha",
+    name: "fecha",
+    required: true,
+    id: "fecha"
+  })), /*#__PURE__*/_react.default.createElement("div", {
+    className: "usersSubmit__wrapper"
+  }, /*#__PURE__*/_react.default.createElement("label", {
+    htmlFor: "hora"
+  }, "Hora (hh:mm 24hrs)"), /*#__PURE__*/_react.default.createElement("input", {
+    type: "text",
+    placeholder: "Hora",
+    name: "hora",
+    required: true,
+    id: "hora"
+  })), /*#__PURE__*/_react.default.createElement("div", {
+    className: "usersSubmit__wrapper usersSubmit__wrapper--btnSubmit"
+  }, /*#__PURE__*/_react.default.createElement("button", {
+    type: "button",
+    onClick: onSubmitClick
+  }, "Agregar")));
+}
+
+var _default = SubmitDraw;
+exports.default = _default;
+},{"react":"node_modules/react/index.js","../models/Sorteo":"js/models/Sorteo.js"}],"js/components/DrawsTable.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+var _Sorteos = require("../repository/Sorteos");
+
+var _DrawForm = _interopRequireDefault(require("./DrawForm"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(n); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _createSuper(Derived) { return function () { var Super = _getPrototypeOf(Derived), result; if (_isNativeReflectConstruct()) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+var DrawsTable = /*#__PURE__*/function (_React$Component) {
+  _inherits(DrawsTable, _React$Component);
+
+  var _super = _createSuper(DrawsTable);
+
+  function DrawsTable(props) {
+    var _this;
+
+    _classCallCheck(this, DrawsTable);
+
+    _this = _super.call(this, props);
+    _this.state = {
+      data: []
+    };
+    return _this;
+  }
+
+  _createClass(DrawsTable, [{
+    key: "render",
+    value: function render() {
+      return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement(_DrawForm.default, {
+        postSorteo: _Sorteos.postSorteo,
+        getSorteos: _Sorteos.getSorteos,
+        refreshTable: this.onNewSorteoSubmitted.bind(this)
+      }), /*#__PURE__*/_react.default.createElement("table", {
+        className: "DataTable"
+      }, /*#__PURE__*/_react.default.createElement("thead", null, /*#__PURE__*/_react.default.createElement("tr", null, /*#__PURE__*/_react.default.createElement("th", null, "ID"), /*#__PURE__*/_react.default.createElement("th", null, "Fecha de realizacion"), /*#__PURE__*/_react.default.createElement("th", null, "Hora de realizacion"), /*#__PURE__*/_react.default.createElement("th", null, "Numero ganador"))), /*#__PURE__*/_react.default.createElement("tbody", null, this.state.data.map(function (value, index, array) {
+        var _value$date$split = value["date"].split('T'),
+            _value$date$split2 = _slicedToArray(_value$date$split, 2),
+            date = _value$date$split2[0],
+            time = _value$date$split2[1];
+
+        var drawId = value['drawId'];
+        var winner = value['winner'];
+        return /*#__PURE__*/_react.default.createElement("tr", {
+          key: index
+        }, /*#__PURE__*/_react.default.createElement("td", null, drawId), /*#__PURE__*/_react.default.createElement("td", null, date), /*#__PURE__*/_react.default.createElement("td", null, time), /*#__PURE__*/_react.default.createElement("td", null, winner ? winner : "Indefinido"));
+      }))));
+    }
+  }, {
+    key: "onDataReady",
+    value: function onDataReady(value) {
+      this.setState({
+        data: value
+      });
+    }
+  }, {
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      (0, _Sorteos.getSorteos)().then(this.onDataReady.bind(this));
+    }
+  }, {
+    key: "onNewSorteoSubmitted",
+    value: function onNewSorteoSubmitted(value) {
+      this.setState({
+        data: value
+      });
+    }
+  }]);
+
+  return DrawsTable;
+}(_react.default.Component);
+
+var _default = DrawsTable;
+exports.default = _default;
+},{"react":"node_modules/react/index.js","../repository/Sorteos":"js/repository/Sorteos.js","./DrawForm":"js/components/DrawForm.js"}],"js/repository/Usuarios.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.GetUsuarios = GetUsuarios;
+exports.logIn = logIn;
+exports.logOut = logOut;
+exports.isLogged = void 0;
 
 var _axios = _interopRequireDefault(require("axios"));
 
@@ -36608,6 +36886,8 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 var baseURL = "https://localhost:44324/api/Users";
+var isLogged = false;
+exports.isLogged = isLogged;
 
 function GetUsuarios() {
   return _GetUsuarios.apply(this, arguments);
@@ -36636,7 +36916,98 @@ function _GetUsuarios() {
   }));
   return _GetUsuarios.apply(this, arguments);
 }
-},{"axios":"node_modules/axios/index.js"}],"js/components/UsersTable.js":[function(require,module,exports) {
+
+function PostUsuario(_x) {
+  return _PostUsuario.apply(this, arguments);
+}
+
+function _PostUsuario() {
+  _PostUsuario = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(usuario) {
+    return regeneratorRuntime.wrap(function _callee2$(_context2) {
+      while (1) {
+        switch (_context2.prev = _context2.next) {
+          case 0:
+          case "end":
+            return _context2.stop();
+        }
+      }
+    }, _callee2);
+  }));
+  return _PostUsuario.apply(this, arguments);
+}
+
+function logIn(usuario) {
+  exports.isLogged = isLogged = true;
+}
+
+function logOut() {
+  exports.isLogged = isLogged = false;
+}
+},{"axios":"node_modules/axios/index.js"}],"js/components/UsersForm.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function SubmitUser(props) {
+  return /*#__PURE__*/_react.default.createElement("form", {
+    className: "usersSubmit"
+  }, /*#__PURE__*/_react.default.createElement("div", {
+    className: "usersSubmit__wrapper"
+  }, /*#__PURE__*/_react.default.createElement("label", {
+    htmlFor: "nombres"
+  }, "Nombres"), /*#__PURE__*/_react.default.createElement("input", {
+    type: "text",
+    placeholder: "Nombres del usuario",
+    name: "nombres",
+    required: true,
+    id: "nombres"
+  })), /*#__PURE__*/_react.default.createElement("div", {
+    className: "usersSubmit__wrapper"
+  }, /*#__PURE__*/_react.default.createElement("label", {
+    htmlFor: "apellidos"
+  }, "Apellidos"), /*#__PURE__*/_react.default.createElement("input", {
+    type: "text",
+    placeholder: "Apellidos del usuario",
+    name: "apellidos",
+    required: true,
+    id: "apellidos"
+  })), /*#__PURE__*/_react.default.createElement("div", {
+    className: "usersSubmit__wrapper"
+  }, /*#__PURE__*/_react.default.createElement("label", {
+    htmlFor: "clave"
+  }, "Clave de acceso"), /*#__PURE__*/_react.default.createElement("input", {
+    type: "text",
+    placeholder: "Clave de acceso",
+    name: "clave",
+    required: true,
+    id: "clave"
+  })), /*#__PURE__*/_react.default.createElement("div", {
+    className: "usersSubmit__wrapper"
+  }, /*#__PURE__*/_react.default.createElement("label", {
+    htmlFor: "username"
+  }, "Username"), /*#__PURE__*/_react.default.createElement("input", {
+    type: "text",
+    placeholder: "Nombre de usuario",
+    name: "username",
+    required: true,
+    id: "username"
+  })), /*#__PURE__*/_react.default.createElement("div", {
+    className: "usersSubmit__wrapper usersSubmit__wrapper--btnSubmit"
+  }, /*#__PURE__*/_react.default.createElement("button", {
+    type: "button"
+  }, "Agregar")));
+}
+
+var _default = SubmitUser;
+exports.default = _default;
+},{"react":"node_modules/react/index.js"}],"js/components/UsersTable.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -36647,6 +37018,8 @@ exports.default = void 0;
 var _react = _interopRequireDefault(require("react"));
 
 var _Usuarios = require("../repository/Usuarios");
+
+var _UsersForm = _interopRequireDefault(require("./UsersForm"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -36692,13 +37065,13 @@ var UsersTable = /*#__PURE__*/function (_React$Component) {
   _createClass(UsersTable, [{
     key: "render",
     value: function render() {
-      return /*#__PURE__*/_react.default.createElement("table", {
+      return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement(_UsersForm.default, null), /*#__PURE__*/_react.default.createElement("table", {
         className: "DataTable"
       }, /*#__PURE__*/_react.default.createElement("thead", null, /*#__PURE__*/_react.default.createElement("tr", null, /*#__PURE__*/_react.default.createElement("th", null, "ID"), /*#__PURE__*/_react.default.createElement("th", null, "Nombres"), /*#__PURE__*/_react.default.createElement("th", null, "Apellidos"), /*#__PURE__*/_react.default.createElement("th", null, "Username"), /*#__PURE__*/_react.default.createElement("th", null, "Clave de acceso"), /*#__PURE__*/_react.default.createElement("th", null, "Rol"), /*#__PURE__*/_react.default.createElement("th", null, "Estado"))), /*#__PURE__*/_react.default.createElement("tbody", null, this.state.data.map(function (value, index, array) {
         return /*#__PURE__*/_react.default.createElement("tr", {
           key: index
         }, /*#__PURE__*/_react.default.createElement("td", null, value['userId']), /*#__PURE__*/_react.default.createElement("td", null, value['firstNames']), /*#__PURE__*/_react.default.createElement("td", null, value['lastNames']), /*#__PURE__*/_react.default.createElement("td", null, value['userName']), /*#__PURE__*/_react.default.createElement("td", null, value['password']), /*#__PURE__*/_react.default.createElement("td", null, value['role']['description']), /*#__PURE__*/_react.default.createElement("td", null, value['state']['description']));
-      })));
+      }))));
     }
   }, {
     key: "onDataReady",
@@ -36710,7 +37083,9 @@ var UsersTable = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "componentDidMount",
     value: function componentDidMount() {
-      (0, _Usuarios.GetUsuarios)().then(this.onDataReady.bind(this));
+      (0, _Usuarios.GetUsuarios)().then(this.onDataReady.bind(this)).catch(function (err) {
+        console.log(_typeof(err));
+      });
     }
   }]);
 
@@ -36719,7 +37094,176 @@ var UsersTable = /*#__PURE__*/function (_React$Component) {
 
 var _default = UsersTable;
 exports.default = _default;
-},{"react":"node_modules/react/index.js","../repository/Usuarios":"js/repository/Usuarios.js"}],"js/components/App.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","../repository/Usuarios":"js/repository/Usuarios.js","./UsersForm":"js/components/UsersForm.js"}],"js/components/Login.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function Login(props) {
+  return /*#__PURE__*/_react.default.createElement("section", null, /*#__PURE__*/_react.default.createElement("h1", null, "Acceso para usuarios"), /*#__PURE__*/_react.default.createElement("form", null, /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("label", _defineProperty({
+    htmlFor: "username"
+  }, "htmlFor", "username"), "Nombre de usuario"), /*#__PURE__*/_react.default.createElement("input", {
+    type: "text",
+    name: "username",
+    id: "username"
+  })), /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("label", _defineProperty({
+    htmlFor: "password"
+  }, "htmlFor", "password"), "Contrase\xF1a"), /*#__PURE__*/_react.default.createElement("input", {
+    type: "password",
+    name: "password",
+    id: "password"
+  })), /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("button", {
+    type: "button",
+    id: "submit"
+  }, "Acceder")))));
+}
+
+var _default = Login;
+exports.default = _default;
+},{"react":"node_modules/react/index.js"}],"js/components/BuyDraw.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireWildcard(require("react"));
+
+var _Sorteos = require("../repository/Sorteos");
+
+function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(n); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+function BuyDraw(props) {
+  var _useState = (0, _react.useState)([]),
+      _useState2 = _slicedToArray(_useState, 2),
+      data = _useState2[0],
+      setData = _useState2[1];
+
+  function onDataReady(value) {
+    setData(value);
+  }
+
+  (0, _react.useEffect)(function () {
+    (0, _Sorteos.getSorteos)().then(onDataReady);
+  });
+  return /*#__PURE__*/_react.default.createElement("section", null, /*#__PURE__*/_react.default.createElement("h2", {
+    style: {
+      textAlign: 'left'
+    }
+  }, "Comprar un numero"), /*#__PURE__*/_react.default.createElement("form", null, /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("label", {
+    htmlFor: "numero"
+  }, "\xBFQue Numero que desea jugar?"), /*#__PURE__*/_react.default.createElement("input", {
+    type: "text",
+    id: "numero",
+    required: true
+  })), /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("label", {
+    htmlFor: "sorteos"
+  }, "Escoja el sorteo"), /*#__PURE__*/_react.default.createElement("select", {
+    name: "sorteos",
+    id: "sorteos"
+  }, data.map(function (value, index, array) {
+    var _value$date$split = value["date"].split('T'),
+        _value$date$split2 = _slicedToArray(_value$date$split, 2),
+        date = _value$date$split2[0],
+        time = _value$date$split2[1];
+
+    return /*#__PURE__*/_react.default.createElement("option", {
+      value: value['drawId'],
+      key: value['drawId']
+    }, date, ",", time);
+  }))), /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("label", {
+    htmlFor: "inversion"
+  }, "\xBFCon cuanto jugara este numero?"), /*#__PURE__*/_react.default.createElement("input", {
+    type: "text",
+    id: "inversion",
+    required: true
+  })), /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("button", null, "Comprar"))));
+}
+
+var _default = BuyDraw;
+exports.default = _default;
+},{"react":"node_modules/react/index.js","../repository/Sorteos":"js/repository/Sorteos.js"}],"js/components/DrawsBoughtTable.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+var _BuyDraw = _interopRequireDefault(require("./BuyDraw"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function DrawsBoughtTable(props) {
+  return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement(_BuyDraw.default, null), /*#__PURE__*/_react.default.createElement("table", {
+    className: "DataTable"
+  }, /*#__PURE__*/_react.default.createElement("thead", null, /*#__PURE__*/_react.default.createElement("tr", null, /*#__PURE__*/_react.default.createElement("th", null, "ID"), /*#__PURE__*/_react.default.createElement("th", null, "Numero"), /*#__PURE__*/_react.default.createElement("th", null, "$ Inversion"), /*#__PURE__*/_react.default.createElement("th", null, "Fecha de sorteo"))), /*#__PURE__*/_react.default.createElement("tbody", null)));
+}
+
+var _default = DrawsBoughtTable;
+exports.default = _default;
+},{"react":"node_modules/react/index.js","./BuyDraw":"js/components/BuyDraw.js"}],"js/components/PrivateRoutes.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _reactRouterDom = require("react-router-dom");
+
+var _Usuarios = require("../repository/Usuarios");
+
+var _react = _interopRequireDefault(require("react"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _objectWithoutProperties(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
+
+function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
+
+function PrivateRoutes(_ref) {
+  var children = _ref.children,
+      rest = _objectWithoutProperties(_ref, ["children"]);
+
+  if (_Usuarios.isLogged) {
+    return children;
+  } else {
+    return /*#__PURE__*/_react.default.createElement(_reactRouterDom.Redirect, {
+      to: "/login"
+    });
+  }
+}
+
+var _default = PrivateRoutes;
+exports.default = _default;
+},{"react-router-dom":"node_modules/react-router-dom/esm/react-router-dom.js","../repository/Usuarios":"js/repository/Usuarios.js","react":"node_modules/react/index.js"}],"js/components/App.js":[function(require,module,exports) {
 "use strict";
 
 require("regenerator-runtime/runtime");
@@ -36736,7 +37280,15 @@ var _Nav = _interopRequireDefault(require("./Nav"));
 
 var _Header = _interopRequireDefault(require("./Header"));
 
+var _DrawsTable = _interopRequireDefault(require("./DrawsTable"));
+
 var _UsersTable = _interopRequireDefault(require("./UsersTable"));
+
+var _Login = _interopRequireDefault(require("./Login"));
+
+var _DrawsBoughtTable = _interopRequireDefault(require("./DrawsBoughtTable"));
+
+var _PrivateRoutes = _interopRequireDefault(require("./PrivateRoutes"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -36768,27 +37320,47 @@ var App = /*#__PURE__*/function (_React$Component) {
   var _super = _createSuper(App);
 
   function App(props) {
+    var _this;
+
     _classCallCheck(this, App);
 
-    return _super.call(this, props);
+    _this = _super.call(this, props);
+    console.log(props);
+    return _this;
   }
 
   _createClass(App, [{
     key: "render",
     value: function render() {
-      return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement(_Nav.default, null), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Switch, null, /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
-        path: "/Sorteos"
-      }, /*#__PURE__*/_react.default.createElement(_Header.default, {
-        sectionDesc: "Todos los sorteos"
-      })), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
-        path: "/Usuarios"
-      }, /*#__PURE__*/_react.default.createElement(_Header.default, {
-        sectionDesc: "Todos los usuarios"
-      }), /*#__PURE__*/_react.default.createElement(_UsersTable.default, null)), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
+      return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement(_reactRouterDom.Switch, null, /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
+        exact: true,
+        path: "/login"
+      }, /*#__PURE__*/_react.default.createElement(_Login.default, null)), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
+        exact: true,
         path: "/"
       }, /*#__PURE__*/_react.default.createElement(_Header.default, {
-        sectionDesc: "Pagina principal"
-      }))));
+        sectionDesc: "Compra y venta de loteria"
+      })), /*#__PURE__*/_react.default.createElement(_PrivateRoutes.default, null, /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
+        path: "/Home"
+      }, /*#__PURE__*/_react.default.createElement(_Header.default, {
+        sectionDesc: "Pagina Home"
+      })), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
+        path: "/BuySorteos"
+      }, /*#__PURE__*/_react.default.createElement(_Nav.default, null), /*#__PURE__*/_react.default.createElement(_Header.default, {
+        sectionDesc: "Compra de jugadas"
+      }), /*#__PURE__*/_react.default.createElement(_DrawsBoughtTable.default, null)), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
+        path: "/Sorteos"
+      }, /*#__PURE__*/_react.default.createElement(_Nav.default, null), /*#__PURE__*/_react.default.createElement(_Header.default, {
+        sectionDesc: "Todos los sorteos"
+      }), /*#__PURE__*/_react.default.createElement(_DrawsTable.default, null)), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
+        path: "/Usuarios"
+      }, /*#__PURE__*/_react.default.createElement(_Nav.default, null), /*#__PURE__*/_react.default.createElement(_Header.default, {
+        sectionDesc: "Todos los usuarios"
+      }), /*#__PURE__*/_react.default.createElement(_UsersTable.default, null)), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
+        path: "*"
+      }, /*#__PURE__*/_react.default.createElement(_Header.default, {
+        sectionDesc: "Sorry, page not found 404"
+      })))));
     }
   }]);
 
@@ -36798,7 +37370,7 @@ var App = /*#__PURE__*/function (_React$Component) {
 var Router = /*#__PURE__*/_react.default.createElement(_reactRouterDom.BrowserRouter, null, /*#__PURE__*/_react.default.createElement(App, null));
 
 _reactDom.default.render(Router, root);
-},{"regenerator-runtime/runtime":"node_modules/regenerator-runtime/runtime.js","../../css/app.css":"css/app.css","react":"node_modules/react/index.js","react-dom":"node_modules/react-dom/index.js","react-router-dom":"node_modules/react-router-dom/esm/react-router-dom.js","./Nav":"js/components/Nav.js","./Header":"js/components/Header.js","./UsersTable":"js/components/UsersTable.js"}],"../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"regenerator-runtime/runtime":"node_modules/regenerator-runtime/runtime.js","../../css/app.css":"css/app.css","react":"node_modules/react/index.js","react-dom":"node_modules/react-dom/index.js","react-router-dom":"node_modules/react-router-dom/esm/react-router-dom.js","./Nav":"js/components/Nav.js","./Header":"js/components/Header.js","./DrawsTable":"js/components/DrawsTable.js","./UsersTable":"js/components/UsersTable.js","./Login":"js/components/Login.js","./DrawsBoughtTable":"js/components/DrawsBoughtTable.js","./PrivateRoutes":"js/components/PrivateRoutes.js"}],"../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -36826,7 +37398,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57735" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54990" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

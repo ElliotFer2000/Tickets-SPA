@@ -8,6 +8,7 @@ class Nav extends React.Component{
     }
 
     render(){
+        
         return(<nav className="Nav">
                   <ul className="Nav__Links">
                       <li>
@@ -19,6 +20,10 @@ class Nav extends React.Component{
                       <li>
                           <NavLink to="/Sorteos" className="Nav__Link" activeClassName="Nav__Link--Active">Sorteos</NavLink>
                       </li>
+                      <li>
+                          <NavLink to="/BuySorteos" className="Nav__Link" activeClassName="Nav__Link--Active">Comprar sorteo</NavLink>
+                      </li>
+                    
                   </ul>
                </nav>);
     }

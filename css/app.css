@@ -4,12 +4,39 @@
     --accent: yellow;
     --light: #fff;
 
-    --link-font-size: 24px;
+    --link-font-size: 16px;
 }
 
-h1{
+*{
     margin: 0;
-    font-size: 50px;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+label{
+    display: block;
+    margin-top: 5px;
+}
+
+.usersSubmit__wrapper{
+    margin-right: 15px;
+}
+
+input,select{
+    margin-top: 9px;
+    width: 200px;
+}
+
+button{
+    margin-top: 10px;
+    padding: 10px 20px;
+}
+
+
+
+h1,h2,h3,h4,h5,h6{
+    margin: 0;
+    font-size: 30px;
     
 }
 
@@ -20,17 +47,15 @@ h1,p{
 p{
     margin-bottom: 15px;
     margin-top: 15px;
-    font-size: 34px;
+    font-size: 16px;
 }
 
 td,th{
     padding: 9px;
 }
 .Nav{
-    margin-bottom: 15px;
-    margin-top: 15px;
     height: 52px;
-   
+    overflow-x: auto;
 }
 .Nav__Link--Active{
     border-style: dashed;
@@ -57,8 +82,24 @@ td,th{
        
 }
 
+.usersSubmit__btn{
+    display: flex;
+    
+}
+
 .DataTable{
     margin-left: auto;
     margin-right: auto;
     margin-top: 15px;
 }
+
+.Auth{
+    max-width: 500px;
+    margin-left: auto;
+
+}
+
+.Auth__Heading{
+    text-align: left;
+}
+

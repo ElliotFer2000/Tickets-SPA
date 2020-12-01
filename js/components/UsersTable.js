@@ -1,5 +1,6 @@
 import React from "react";
 import { GetUsuarios } from "../repository/Usuarios";
+import SubmitUser from "./UsersForm";
 
 
 class UsersTable extends React.Component {
@@ -10,32 +11,36 @@ class UsersTable extends React.Component {
     }
     render() {
 
-        return (<table className="DataTable">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Nombres</th>
-                    <th>Apellidos</th>
-                    <th>Username</th>
-                    <th>Clave de acceso</th>
-                    <th>Rol</th>
-                    <th>Estado</th>
-                </tr>
-            </thead>
-            <tbody>
-                {this.state.data.map((value, index, array) => {
-                    return (<tr key={index}>
-                        <td>{value['userId']}</td>
-                        <td>{value['firstNames']}</td>
-                        <td>{value['lastNames']}</td>
-                        <td>{value['userName']}</td>
-                        <td>{value['password']}</td>
-                        <td>{value['role']['description']}</td>
-                        <td>{value['state']['description']}</td>
-                    </tr>);
-                })}
-            </tbody>
-        </table>)
+        return (
+            <div>
+                <SubmitUser/>
+                <table className="DataTable">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombres</th>
+                            <th>Apellidos</th>
+                            <th>Username</th>
+                            <th>Clave de acceso</th>
+                            <th>Rol</th>
+                            <th>Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {this.state.data.map((value, index, array) => {
+                            return (<tr key={index}>
+                                <td>{value['userId']}</td>
+                                <td>{value['firstNames']}</td>
+                                <td>{value['lastNames']}</td>
+                                <td>{value['userName']}</td>
+                                <td>{value['password']}</td>
+                                <td>{value['role']['description']}</td>
+                                <td>{value['state']['description']}</td>
+                            </tr>);
+                        })}
+                    </tbody>
+                </table>
+            </div>)
     }
 
     onDataReady(value) {
@@ -43,7 +48,9 @@ class UsersTable extends React.Component {
     }
 
     componentDidMount() {
-        GetUsuarios().then(this.onDataReady.bind(this))
+        GetUsuarios().then(this.onDataReady.bind(this)).catch((err)=>{
+            console.log(typeof err)
+        })
     }
 }
 
