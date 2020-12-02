@@ -1,32 +1,51 @@
-import React from "react";
-import {NavLink,Link} from "react-router-dom";
+import React, { useState } from "react"
+import { Link } from "react-router-dom"
+import { makeStyles } from '@material-ui/core/styles'
+import BottomNavigation from '@material-ui/core/BottomNavigation'
+import BottomNavigationAction from '@material-ui/core/BottomNavigationAction'
+import HomeIcon from '@material-ui/icons/Home';
+import PeopleIcon from '@material-ui/icons/People';
+import BlurOnIcon from '@material-ui/icons/BlurOn';
+import { textTheme } from "./themes/Themes"
+import { ThemeProvider } from '@material-ui/core/styles'
 
 
-class Nav extends React.Component{
-    constructor(props){
-        super(props)
+const useStyles = makeStyles({
+    root: {
+        width: '100%',
+        position: 'fixed',
+        bottom: 0,
+        left: 0,
+        right: 0
+    },
+});
+
+function Nav(props) {
+    const [value, setValue] = useState(0);
+    const classes = useStyles();
+
+
+    const onOptionsChange = (event, newValue) => {
+        setValue(newValue);
     }
 
-    render(){
-        
-        return(<nav className="Nav">
-                  <ul className="Nav__Links">
-                      <li>
-                         <Link to="/" className="Nav__Link">Pagina principal</Link>
-                      </li>
-                      <li>
-                         <NavLink to="/Usuarios" className="Nav__Link" activeClassName="Nav__Link--Active">Usuarios</NavLink>
-                       </li>
-                      <li>
-                          <NavLink to="/Sorteos" className="Nav__Link" activeClassName="Nav__Link--Active">Sorteos</NavLink>
-                      </li>
-                      <li>
-                          <NavLink to="/BuySorteos" className="Nav__Link" activeClassName="Nav__Link--Active">Comprar sorteo</NavLink>
-                      </li>
-                    
-                  </ul>
-               </nav>);
-    }
+    return (
+        <ThemeProvider theme={textTheme}>
+            <BottomNavigation
+                position='fixed'
+                bottom='0'
+                value={value}
+                onChange={onOptionsChange}
+                showLabels
+                className={classes.root}>
+
+                <BottomNavigationAction component={Link} to='/Home' label="Home" icon={<HomeIcon />} />
+                <BottomNavigationAction component={Link} to='/Usuarios' label="Usuarios" icon={<PeopleIcon />} />
+                <BottomNavigationAction component={Link} to='/Sorteos' label="Sorteos" icon={<BlurOnIcon />} />
+
+
+            </BottomNavigation>
+        </ThemeProvider>);
 }
 
-export default Nav;
+export default Nav

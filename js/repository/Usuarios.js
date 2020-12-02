@@ -16,6 +16,9 @@ async function PostUsuario(usuario) {
 
 function logIn(usuario){
   isLogged = true
+  return new Promise(function(resolve,reject){
+               resolve('fake session token')
+         })
 }
 
 function logOut(){

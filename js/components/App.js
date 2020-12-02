@@ -2,7 +2,7 @@ import 'regenerator-runtime/runtime'
 import "../../css/app.css"
 import React from "react"
 import ReactDOM from "react-dom"
-import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom"
+import { BrowserRouter, Route, Switch, Link } from "react-router-dom"
 import Nav from "./Nav"
 import Header from "./Header"
 import DrawsTable from "./DrawsTable"
@@ -10,43 +10,50 @@ import UsersTable from "./UsersTable"
 import Login from "./Login"
 import DrawsBoughtTable from './DrawsBoughtTable'
 import PrivateRoutes from './PrivateRoutes'
+import Box from '@material-ui/core/Box'
+
+
 class App extends React.Component {
     constructor(props) {
         super(props)
-        console.log(props)
     }
 
     render() {
         return (<div>
 
+
             <Switch>
-                <Route path="/">
-                    <Header sectionDesc="Compra y venta de loteria" />
-                </Route>
-                <Route path="/login">
+                <Route exact path="/login">
                     <Login />
+                </Route>
+                <Route exact path="/">
+                    <Header sectionDesc="Compra y venta de loteria" />
                 </Route>
 
                 <PrivateRoutes>
                     <Route path="/Home">
-                        <Header sectionDesc="Pagina Home" />
+                        <Nav />
+                        <Header sectionDesc="Home" />
+                        <Box mt={8}>
+                            <Link to="/LogOut">Cerrar Sesion</Link>
+                        </Box>
                     </Route>
                     <Route path="/BuySorteos">
                         <Nav />
-                        <Header sectionDesc="Compra de jugadas" />
+                        <Header sectionDesc="Jugadas" />
                         <DrawsBoughtTable />
                     </Route>
                     <Route path="/Sorteos">
                         <Nav />
-                        <Header sectionDesc="Todos los sorteos" />
+                        <Header sectionDesc="Sorteos" />
                         <DrawsTable />
                     </Route>
                     <Route path="/Usuarios">
                         <Nav />
-                        <Header sectionDesc="Todos los usuarios" />
+                        <Header sectionDesc="Usuarios" />
                         <UsersTable />
                     </Route>
-                    <Route path="*">
+                    <Route path="/*">
                         <Header sectionDesc="Sorry, page not found 404" />
                     </Route>
                 </PrivateRoutes>
@@ -59,5 +66,4 @@ class App extends React.Component {
 const Router = (<BrowserRouter>
     <App />
 </BrowserRouter>);
-
 ReactDOM.render(Router, root)

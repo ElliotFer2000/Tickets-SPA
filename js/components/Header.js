@@ -1,16 +1,15 @@
-import React from "react";
+import React from "react"
+import AppBar from '@material-ui/core/AppBar'
+import ToolBar from '@material-ui/core/ToolBar'
 
-class Header extends React.Component{
-    constructor(props){
-        super(props)
-    }
 
-    render(){
-        return(<header>
-                    <h1>Loteria Online</h1>
-                    <p>{this.props.sectionDesc}</p>
-               </header>);
-    }
+function Header({ sectionDesc }) {
+     
+     return (<AppBar>
+                <ToolBar>
+                 <h1>{sectionDesc}</h1>
+                </ToolBar>
+            </AppBar>);
 }
 
 export default Header

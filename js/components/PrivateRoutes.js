@@ -1,12 +1,18 @@
-import { useHistory, Switch, Redirect } from "react-router-dom"
-import { logIn, logOut, isLogged } from "../repository/Usuarios"
+import { Redirect, Switch } from "react-router-dom"
+import { isLogged } from "../repository/Usuarios"
 import React from "react"
 
+
+
 function PrivateRoutes({ children, ...rest }) {
+
+
     if (isLogged) {
-        return children
+        return (    <Switch>
+                        {children}
+                   </Switch>);
     } else {
-        return (<Redirect to="/login"/>);
+        return (<Redirect to="/login" />);
     }
 }
 
