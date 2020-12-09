@@ -1,6 +1,7 @@
-import axios from "axios";
+import axios from 'axios';
 
-const baseURL = "https://localhost:44324/api/Users"
+const baseURL = 'https://localhost:44324/api/Users'
+
 let isLogged = false
 
 async function GetUsuarios() {
@@ -10,22 +11,19 @@ async function GetUsuarios() {
 
 }
 
-async function PostUsuario(usuario) {
 
-}
+async function logIn(auth) {
 
-function logIn(usuario) {
-  isLogged = true
-  return new Promise(function (resolve, reject) {
-    resolve({
-      username: 'Blah12',
-      token: 'Some dummie token'
-    });
-  })
+  try {
+    const session = await axios.post(`${baseURL}/Login`, auth)
+    return session.data
+  } catch (error) {
+    return 500
+  }
 }
 
 function logOut() {
-  isLogged = false
+
 }
 
 

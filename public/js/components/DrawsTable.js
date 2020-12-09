@@ -1,56 +1,103 @@
-import React from "react";
-import { getSorteos,postSorteo } from "../repository/Sorteos";
+import React, { useState, useEffect } from "react";
+import { getSorteos, postSorteo } from "../repository/Sorteos";
+import { makeStyles } from '@material-ui/core/styles';
 import SubmitDraw from "./DrawForm";
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow'
+import Paper from '@material-ui/core/Paper';
+import { textTheme } from './themes/Themes';
+import { ThemeProvider } from '@material-ui/core/styles'
+import Button from '@material-ui/core/Button'
+import FullScreenDialog from './SubmitDialog';
+import Box from '@material-ui/core/Box'
 
-class DrawsTable extends React.Component {
-    constructor(props) {
-        super(props)
-        this.state = { data: [] }
+
+const useStyles = makeStyles({
+    table: {
+        minWidth: 650,
+    },
+});
+
+
+
+function DrawsTable(props) {
+    const classes = useStyles();
+    const [value, setValue] = useState([])
+    const [open, setOpen] = useState(false)
+
+    let dataShouldLoad = true
+
+    function onDataReady(value) {
+        setValue(value)
+    }
+
+    function onSubmitDraw() {
 
     }
-    render() {
 
-        return (
-            <div>
-                <SubmitDraw postSorteo={postSorteo} getSorteos={getSorteos} refreshTable={this.onNewSorteoSubmitted.bind(this)}/>
-                <table className="DataTable">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Fecha de realizacion</th>
-                            <th>Hora de realizacion</th>
-                            <th>Numero ganador</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {this.state.data.map((value, index, array) => {
+    function onNewSorteoSubmitted(value) {
+        //dataShouldLoad = true
+        //setValue(value)
+    }
+
+    function handleOpenDialog() {
+        setOpen(true)
+    }
+
+    function handleCloseDialog() {
+        setOpen(false)
+    }
+
+    useEffect(() => {
+        if (dataShouldLoad) {
+            getSorteos().then(onDataReady)
+            dataShouldLoad = false
+        }
+    })
+
+    return (
+        <Box mt={9}>
+            <FullScreenDialog open={open} handleClose={handleCloseDialog} />
+            <Box mb={1}>
+                <Button variant="contained" color="primary" onClick={handleOpenDialog}>
+                    Nuevo Sorteo
+                 </Button>
+            </Box>
+
+            <TableContainer component={Paper} >
+                <Table className={classes.table} size="small">
+                    <TableHead>
+                        <TableRow>
+                            <ThemeProvider theme={textTheme} >
+                                <TableCell>ID</TableCell>
+                                <TableCell align="right">Fecha de realizacion</TableCell>
+                                <TableCell align="right">Hora de realizacion</TableCell>
+                                <TableCell align="right">Numero ganador</TableCell>
+                            </ThemeProvider>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        {value.map((value) => {
                             const [date, time] = value["date"].split('T')
                             const drawId = value['drawId']
                             const winner = value['winner']
 
-                            return (<tr key={index}>
-                                <td>{drawId}</td>
-                                <td>{date}</td>
-                                <td>{time}</td>
-                                <td>{winner ? winner : "Indefinido"}</td>
-                            </tr>);
+                            return (<TableRow key={drawId}>
+                                <TableCell component="th" scope="row">
+                                    {drawId}
+                                </TableCell>
+                                <TableCell align="right">{date}</TableCell>
+                                <TableCell align="right">{time}</TableCell>
+                                <TableCell align="right">{winner ? winner : "Indefinido"}</TableCell>
+                            </TableRow>)
                         })}
-                    </tbody>
-                </table>
-            </div>)
-    }
-
-    onDataReady(value) {
-        this.setState({ data: value })
-    }
-
-    componentDidMount() {
-         getSorteos().then(this.onDataReady.bind(this))
-    }
-
-    onNewSorteoSubmitted(value){
-        this.setState({data: value})
-    }
+                    </TableBody>
+                </Table>
+            </TableContainer>
+        </Box>)
 }
-
 export default DrawsTable

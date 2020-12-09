@@ -14,6 +14,7 @@ class UsersTable extends React.Component {
        return (
             <div>
                 <SubmitUser/>
+                <button>Nuevo Usuario</button>
                 <table className="DataTable">
                     <thead>
                         <tr>

@@ -1,7 +1,10 @@
 import 'regenerator-runtime/runtime'
-import '../../css/app.css'
-import '../../img/HomePortrait.gif'
-import '../../img/NotFoundPortrait.gif'
+import '../../img/HomePortrait-lg.gif'
+import '../../img/NotFoundPortrait-lg.gif'
+import '../../img/HomePortrait-md.gif'
+import '../../img/NotFoundPortrait-md.gif'
+import '../../img/HomePortrait-sm.gif'
+import '../../img/NotFoundPortrait-sm.gif'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { BrowserRouter, Route, Switch, Link } from 'react-router-dom'
@@ -17,9 +20,10 @@ import { textTheme } from './themes/Themes'
 import { ThemeProvider } from '@material-ui/core/styles'
 import { AppContext } from './Context'
 import HomePortrait from './HomePortrait'
-
+import Container from '@material-ui/core/Container'
 
 class App extends React.Component {
+
     constructor(props) {
         super(props)
 
@@ -32,12 +36,12 @@ class App extends React.Component {
     }
 
     render() {
-        const component = this
+       
         const getLoginButton = () => {
 
 
             return (<ThemeProvider theme={textTheme} >
-                        <Button variant="contained" color="secondary" to="/login" component={Link}>
+                        <Button variant="contained" color="secondary" to="/login" component={Link} mr={2}>
                           Login
                         </Button>
                     </ThemeProvider>);
@@ -46,11 +50,13 @@ class App extends React.Component {
         const getLogOutButton = () => {
 
             return (<ThemeProvider theme={textTheme} >
-                        <Button variant="contained" color="secondary" to="/LogOut" component={Link} >
+                        <Button variant="contained" color="secondary" to="/LogOut" component={Link} mr={2}>
                           LogOut
                         </Button>
                     </ThemeProvider>);
         }
+
+
 
         return (<div>
             <Switch>
@@ -74,9 +80,11 @@ class App extends React.Component {
                             <DrawsBoughtTable />
                         </Route>
                         <Route  exact path="/Sorteos">
+                        <Header sectionDesc="Sorteos" logOutBtn={getLogOutButton} />
+                            <Container fixed>
+                               <DrawsTable />
+                            </Container>
                             <Nav />
-                            <Header sectionDesc="Sorteos" logOutBtn={getLogOutButton} />
-                            <DrawsTable />
                         </Route>
                         <Route exact path="/Usuarios">
                             <Nav />
@@ -95,6 +103,7 @@ class App extends React.Component {
         </div>);
     }
 }
+
 
 const Router = (<BrowserRouter>
     <App />
