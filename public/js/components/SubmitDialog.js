@@ -26,7 +26,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 
 
-export default function FullScreenDialog({ handleClose, open }) {
+export default function FullScreenDialog({ handleClose, open,onSubmit}) {
   const classes = useStyles();
 
   const handleClickOpen = () => {
@@ -43,14 +43,16 @@ export default function FullScreenDialog({ handleClose, open }) {
       <Dialog fullScreen open={open} TransitionComponent={Transition}>
         <AppBar className={classes.appBar}>
           <Toolbar>
-            <IconButton edge="start" color="inherit" onClick={handleClose} aria-label="close">
-              <CloseIcon />
-            </IconButton>
-            <h1>Nuevo sorteo</h1>
+            <Box  display="flex" justifyContent="space-between" width="100%">
+              <h1>Nuevo sorteo</h1>
+              <IconButton edge="start" color="inherit" onClick={handleClose} aria-label="close">
+                <CloseIcon />
+              </IconButton>
+            </Box>
           </Toolbar>
         </AppBar>
-        <Box display="flex" justifyContent="center" alignItems="center">
-          <SubmitDraw />
+        <Box display="flex" justifyContent="center" alignItems="center" height="100%" >
+          <SubmitDraw onSubmit={onSubmit}/>
         </Box>
 
       </Dialog>

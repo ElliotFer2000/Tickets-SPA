@@ -32,8 +32,6 @@ function Nav(props) {
     return (
         <ThemeProvider theme={textTheme}>
             <BottomNavigation
-                position='fixed'
-                bottom='0'
                 value={value}
                 onChange={onOptionsChange}
                 showLabels
@@ -42,8 +40,6 @@ function Nav(props) {
                 <BottomNavigationAction component={Link} to='/Home' label="Home" icon={<HomeIcon />} />
                 <BottomNavigationAction component={Link} to='/Usuarios' label="Usuarios" icon={<PeopleIcon />} />
                 <BottomNavigationAction component={Link} to='/Sorteos' label="Sorteos" icon={<BlurOnIcon />} />
-
-
             </BottomNavigation>
         </ThemeProvider>);
 }

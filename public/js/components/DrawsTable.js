@@ -28,22 +28,9 @@ function DrawsTable(props) {
     const classes = useStyles();
     const [value, setValue] = useState([])
     const [open, setOpen] = useState(false)
+    const [load,setLoad] = useState(false)
 
-    let dataShouldLoad = true
-
-    function onDataReady(value) {
-        setValue(value)
-    }
-
-    function onSubmitDraw() {
-
-    }
-
-    function onNewSorteoSubmitted(value) {
-        //dataShouldLoad = true
-        //setValue(value)
-    }
-
+ 
     function handleOpenDialog() {
         setOpen(true)
     }
@@ -52,16 +39,20 @@ function DrawsTable(props) {
         setOpen(false)
     }
 
-    useEffect(() => {
-        if (dataShouldLoad) {
-            getSorteos().then(onDataReady)
-            dataShouldLoad = false
+    useEffect(async () => {
+        if (!load) {
+            const sorteos = await getSorteos()
+            setValue(sorteos)
+            if(open){
+                //setOpen(false)
+            }
+            setLoad(true)
         }
     })
 
     return (
         <Box mt={9}>
-            <FullScreenDialog open={open} handleClose={handleCloseDialog} />
+            <FullScreenDialog open={open} handleClose={handleCloseDialog} onSubmit={setLoad} />
             <Box mb={1}>
                 <Button variant="contained" color="primary" onClick={handleOpenDialog}>
                     Nuevo Sorteo
