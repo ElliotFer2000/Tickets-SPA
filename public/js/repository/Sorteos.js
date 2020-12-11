@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseURL = "https://localhost:44324/api/Draws"
+const baseURL = "https://localhost:44324/api/Draws/"
 
 async function getSorteos() {
     const draws = await axios.get(baseURL)

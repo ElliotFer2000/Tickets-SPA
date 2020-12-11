@@ -1,7 +1,6 @@
 function Ganador(numero){
-    this.numero = numero
-   
-    alert(numero)
+    this.number = numero
+
 }
 
 export default Ganador

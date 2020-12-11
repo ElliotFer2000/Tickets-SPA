@@ -11,7 +11,6 @@ import { BrowserRouter, Route, Switch, Link } from 'react-router-dom'
 import Nav from './Nav'
 import Header from './Header'
 import DrawsTable from './DrawsTable'
-import UsersTable from './UsersTable'
 import Login from './Login'
 import DrawsBoughtTable from './DrawsBoughtTable'
 import PrivateRoutes from './PrivateRoutes'
@@ -37,6 +36,8 @@ class App extends React.Component {
 
     render() {
        
+        console.log('FRom app')
+        console.log(this.context)
         const getLoginButton = () => {
 
 
@@ -70,7 +71,7 @@ class App extends React.Component {
                     </Route>
                     <PrivateRoutes>
                         <Route exact path="/Home">
-                            <Nav />
+                            <Nav value={0}/>
                             <Header sectionDesc="Home" logOutBtn={getLogOutButton} />
                             <HomePortrait />
                         </Route>
@@ -84,13 +85,9 @@ class App extends React.Component {
                             <Container fixed>
                                <DrawsTable />
                             </Container>
-                            <Nav />
+                            <Nav value={1}/>
                         </Route>
-                        <Route exact path="/Usuarios">
-                            <Nav />
-                            <Header sectionDesc="Usuarios" logOutBtn={getLogOutButton} />
-                            <UsersTable />
-                        </Route>
+
                         <Route exact path="/LogOut">
                             <Login handleSession={this.handleSession} />
                         </Route>
@@ -103,6 +100,8 @@ class App extends React.Component {
         </div>);
     }
 }
+
+App.contextType = AppContext
 
 
 const Router = (<BrowserRouter>

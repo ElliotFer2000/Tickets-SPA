@@ -9,33 +9,30 @@ import { putSorteo } from '../repository/Sorteos'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import Ganador from '../models/Ganador'
 
-function WinnerForm({ onSubmit,idDraw}) {
+function WinnerForm({ onSubmit, numberDraw }) {
     const [openProgress, setOpenProgress] = useState(false)
-    const [message,setMessage] = useState('')
-   
+    const [message, setMessage] = useState('')
+
     async function onSubmitClick(event) {
-        if (winner.value) {
-            const ganador = new Ganador(Number(winner.value))
-            try {
-                setOpenProgress(true)
-                const { status } = await putSorteo(ganador)
-                setOpenProgress(false)
-                setMessage('Se agrego el numero ganador')
-                onSubmit(false)
-            } catch (err) {
-                console.log(err)
-            }
+
+        const ganador = new Ganador(Number(numberD.value))
+        try {
+            setOpenProgress(true)
+            const { status } = await putSorteo(ganador)
+            setOpenProgress(false)
+            setMessage('Se agrego el numero ganador')
+            onSubmit(false)
+        } catch (err) {
+            console.log(err)
         }
+
     }
 
     return (<Box width={300}>
         <form className="usersSubmit">
             <ThemeProvider theme={textTheme}>
                 <Box mt={1}>
-                   <TextField id="drawId" type="hidden" value={idDraw} />
-                    <Box display="flex" flexDirection="column" mt={1}>
-                        <TextField id="winner" name="winner" label="Numero ganador" variant="filled" required />
-                    </Box>
+                    <TextField id="numberD" value={numberDraw} disabled />
                 </Box>
                 <Box mt={1}>
                     {openProgress ? <CircularProgress color="primary" /> : <Button variant="contained" color="primary" onClick={onSubmitClick}>Agregar</Button>}

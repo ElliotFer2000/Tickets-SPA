@@ -14,9 +14,9 @@ function SubmitDraw({ onSubmit }) {
     const [count, setCount] = useState(0)
     async function onSubmitClick(event) {
 
-        if (fecha.value && hora.value) {
+        if (fecha.value && hora.value && numero.value) {
             console.log(fecha.value + "T" + hora.value)
-            const sorteo = new Sorteo(fecha.value + "T" + hora.value)
+            const sorteo = new Sorteo(fecha.value + "T" + hora.value,Number(numero.value))
             try {
                 setOpen(true)
                 const { status } = await postSorteo(sorteo)
@@ -26,7 +26,7 @@ function SubmitDraw({ onSubmit }) {
                 onSubmit(false)
 
             } catch (err) {
-                console.log('error submit draw')
+                console.log(err)
             }
 
         }
@@ -41,6 +41,9 @@ function SubmitDraw({ onSubmit }) {
                     </Box>
                     <Box display="flex" flexDirection="column" mt={1}>
                         <TextField id="hora" label="Hora" name="hora" variant="filled" required />
+                    </Box>
+                    <Box display="flex" flexDirection="column" mt={1}>
+                        <TextField id="numero" label="Numero" name="numero" variant="filled" required />
                     </Box>
                 </Box>
                 <Box mt={1}>

@@ -8,7 +8,7 @@ import PeopleIcon from '@material-ui/icons/People';
 import BlurOnIcon from '@material-ui/icons/BlurOn';
 import { textTheme } from "./themes/Themes"
 import { ThemeProvider } from '@material-ui/core/styles'
-
+import {AppContext} from './Context'
 
 const useStyles = makeStyles({
     root: {
@@ -23,12 +23,11 @@ const useStyles = makeStyles({
 function Nav(props) {
     const [value, setValue] = useState(0);
     const classes = useStyles();
-    const context = useContext()
-
+    const context = useContext(AppContext)
 
 
     const onOptionsChange = (event, newValue) => {
-        setValue(newValue);
+      
     }
 
     if (context.userName === 'elliotfrm') {
@@ -36,7 +35,7 @@ function Nav(props) {
         return (
             <ThemeProvider theme={textTheme}>
                 <BottomNavigation
-                    value={value}
+                    value={props.value}
                     onChange={onOptionsChange}
                     showLabels
                     className={classes.root}>
@@ -51,7 +50,7 @@ function Nav(props) {
     return (
         <ThemeProvider theme={textTheme}>
             <BottomNavigation
-                value={value}
+                value={props.value}
                 onChange={onOptionsChange}
                 showLabels
                 className={classes.root}>
