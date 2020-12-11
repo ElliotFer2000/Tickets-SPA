@@ -35,9 +35,7 @@ class App extends React.Component {
     }
 
     render() {
-       
-        console.log('FRom app')
-        console.log(this.context)
+
         const getLoginButton = () => {
 
 

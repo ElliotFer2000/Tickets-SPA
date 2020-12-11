@@ -1,46 +1,95 @@
-import React, { useEffect, useState } from "react"
-import { getSorteos } from "../repository/Sorteos"
+import React, { useState } from "react"
+import Sorteo from "../models/Sorteo"
+import Button from '@material-ui/core/Button'
+import Box from '@material-ui/core/Box'
+import TextField from '@material-ui/core/TextField'
+import { textTheme } from "./themes/Themes"
+import { ThemeProvider } from '@material-ui/core/styles'
+import { postSorteo } from '../repository/Sorteos'
+import CircularProgress from '@material-ui/core/CircularProgress'
+import { postBill } from '../repository/Bills'
+import { Compra } from '../models/Compra'
+function BuyDraw({ drawId }) {
 
-function BuyDraw(props) {
+    const [numbers, setNumbers] = useState([])
+    const [open, setOpen] = useState(false)
+    const [message, setMessage] = useState('')
+    const [count, setCount] = useState(0)
 
-    const [data, setData] = useState([]);
+    function handleAdd() {
+        if (number.value) {
 
-    function onDataReady(value) {
-        setData(value)
+            const newNumbers = [...numbers, { drawId: drawId, number: Number(number.value), investment: Number(investment.value) }]
+
+            setNumbers(newNumbers)
+        }
     }
 
-    useEffect(() => {
-        getSorteos().then(onDataReady)
-    });
+    async function handleSend() {
+        try {
+            if (numbers.length) {
+                const date = new Date()
+                const dateS = date.toLocaleDateString().replaceAll("/","-").split("-").reverse()
+                const dateF = dateS.map((value,index,array)=>{
+                    if((index+1) != array.length){
+                          return value + "-"
+                     }
+                })
+              
+                const final = (dateF + dateS[dateS.length-1]).replaceAll(",","")
+           
+              
 
-    return (
-        <section>
-            <h2 style={{textAlign: 'left'}}>Comprar un numero</h2>
-            <form>
-                <div>
-                    <label htmlFor="numero">¿Que Numero que desea jugar?</label>
-                    <input type="text" id="numero" required />
-                </div>
-                <div>
-                    <label htmlFor="sorteos">
-                        Escoja el sorteo
-            </label>
-                    <select name="sorteos" id="sorteos">
-                        {data.map((value, index, array) => {
-                            const [date, time] = value["date"].split('T')
-                            return (<option value={value['drawId']} key={value['drawId']}>{date},{time}</option>)
-                        })}
-                    </select>
-                </div>
-                <div>
-                    <label htmlFor="inversion">¿Con cuanto jugara este numero?</label>
-                    <input type="text" id="inversion" required />
-                </div>
-                <div>
-                    <button>Comprar</button>
-                </div>
-            </form>
-        </section>);
+                setOpen(true)
+               
+                const response = await postBill({numbers: numbers,date: final + "T00:00:00"})
+                setNumbers([])
+                setMessage('Success')
+                setCount(count + 1)
+                setOpen(false)
+            }
+        } catch (err) {
+            console.log(err)
+        }
+
+    }
+
+    return (<Box>
+
+        <form className="usersSubmit">
+            <p>Numeros comprados: </p>
+
+            <ul>
+                {numbers.map((value, index, array) => {
+                    return <li key={count+1}> {'[ Numero: ' + value.number + ' Inversion: ' + value.investment + ' ]'}</li>
+                })}
+            </ul>
+
+            <p>{message ? 'Se ha hecho tu compra #' + count : 'Aun no has hecho ninguna compra'}</p>
+
+            <ThemeProvider theme={textTheme}>
+                <Box mt={1} width="300">
+                    <Box display="flex" flexDirection="column" mt={1}>
+                        <TextField id="number" name="number" label="Numero" variant="filled" required />
+                    </Box>
+
+                    <Box display="flex" flexDirection="column" mt={1}>
+                        <TextField id="investment" label="Inversion" name="inversion" variant="filled" required />
+                    </Box>
+                </Box>
+                <Box mt={1}>
+                    <Box mr={1}>
+                        {open ? null : <Button variant="contained" color="secondary" onClick={handleAdd}>Agregar </Button>}
+                    </Box>
+                    <Box mt={1}>
+                        {open ? null : <Button variant="contained" color="primary" onClick={handleSend}>Finalizar compra </Button>}
+                    </Box>
+
+                    {open ? <CircularProgress color="primary" /> : null}
+                </Box>
+            </ThemeProvider>
+        </form>
+    </Box>);
 }
 
 export default BuyDraw

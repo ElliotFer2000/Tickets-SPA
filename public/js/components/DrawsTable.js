@@ -13,6 +13,7 @@ import { ThemeProvider } from '@material-ui/core/styles'
 import Button from '@material-ui/core/Button'
 import FullScreenDialog from './SubmitDialog';
 import WinnerDialog from './WinnerDialog'
+import BuyDialog from './BuyDialog'
 import Box from '@material-ui/core/Box';
 import {AppContext} from './Context'
 
@@ -32,6 +33,8 @@ function DrawsTable(props) {
     const [value, setValue] = useState([])
     const [openSubmit, setOpenSubmit] = useState(false)
     const [openWinner, setOpenWinner] = useState(false)
+    const [currentId, setCurrentId] = useState('')
+    const [openBuy,setOpenBuy] = useState(false)
     const [load, setLoad] = useState(false)
     const [currentNumber, setCurrentNumber] = useState(0)
 
@@ -45,12 +48,21 @@ function DrawsTable(props) {
         setOpenWinner(true)
     }
 
+    function handleOpenBuy(event){
+        setCurrentId(event.target.id)
+        setOpenBuy(true)
+    }
+
     function handleCloseSubmit() {
         setOpenSubmit(false)
     }
 
     function handleCloseWinner() {
         setOpenWinner(false)
+    }
+
+    function handleCloseBuy() {
+        setOpenBuy(false)
     }
 
     useEffect(async () => {
@@ -105,7 +117,40 @@ function DrawsTable(props) {
                     </Table>
                 </TableContainer>
             </Box>)
+    }else{
+        return (
+            <Box mt={9}>
+                <BuyDialog open={openBuy} handleClose={handleCloseBuy} onSubmit={setLoad} drawId={currentId} />
+                <TableContainer component={Paper} >
+                    <Table className={classes.table} size="small">
+                        <TableHead>
+                            <TableRow>
+                                <ThemeProvider theme={textTheme} >
+                                    <TableCell align="right">Resultado</TableCell>
+                                    <TableCell align="right">Fecha de realizacion</TableCell>
+                                    <TableCell align="right">Hora de realizacion</TableCell>
+                                </ThemeProvider>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {value.map((value) => {
+                                const [date, time] = value["date"].split('T')
+                                const drawId = value['drawId']
+                                const winner = value['winner']
+                                    return (<TableRow key={drawId}>
+                                        <TableCell component="th" scope="row" align="right">{winner ? winner : <button variant="contained" color="primary" id={drawId} onClick={handleOpenBuy}>Comprar un numero</button>}</TableCell>
+                                        <TableCell align="right">{date}</TableCell>
+                                        <TableCell align="right">{time}</TableCell>
+                                    </TableRow>)
+                            })}
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+            </Box>)
     }
+
+
+
 
 }
 export default DrawsTable
