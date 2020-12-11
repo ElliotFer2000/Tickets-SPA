@@ -28,7 +28,7 @@ function Login({ handleSession }) {
         if (email && password) {
             setAuth('authloading')
             const session = await logIn(new Auth(email, password))
-
+            console.log(session)
             if (session === 500) {
                 setAuth('authfailed')
             } else {
