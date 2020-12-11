@@ -1,6 +1,7 @@
-function Ganador(numero,idDraw){
+function Ganador(numero){
     this.numero = numero
-    this.drawId = idDraw
+   
+    alert(numero)
 }
 
 export default Ganador

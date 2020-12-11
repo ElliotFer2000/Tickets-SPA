@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useContext } from "react"
 import { Link } from "react-router-dom"
 import { makeStyles } from '@material-ui/core/styles'
 import BottomNavigation from '@material-ui/core/BottomNavigation'
@@ -23,10 +23,29 @@ const useStyles = makeStyles({
 function Nav(props) {
     const [value, setValue] = useState(0);
     const classes = useStyles();
+    const context = useContext()
+
 
 
     const onOptionsChange = (event, newValue) => {
         setValue(newValue);
+    }
+
+    if (context.userName === 'elliotfrm') {
+
+        return (
+            <ThemeProvider theme={textTheme}>
+                <BottomNavigation
+                    value={value}
+                    onChange={onOptionsChange}
+                    showLabels
+                    className={classes.root}>
+
+                    <BottomNavigationAction component={Link} to='/Home' label="Home" icon={<HomeIcon />} />
+                    <BottomNavigationAction component={Link} to='/Sorteos' label="Sorteos" icon={<BlurOnIcon />} />
+                    <BottomNavigationAction component={Link} to='/Compras' label="Compras" icon={<BlurOnIcon />} />
+                </BottomNavigation>
+            </ThemeProvider>);
     }
 
     return (
@@ -38,7 +57,6 @@ function Nav(props) {
                 className={classes.root}>
 
                 <BottomNavigationAction component={Link} to='/Home' label="Home" icon={<HomeIcon />} />
-                <BottomNavigationAction component={Link} to='/Usuarios' label="Usuarios" icon={<PeopleIcon />} />
                 <BottomNavigationAction component={Link} to='/Sorteos' label="Sorteos" icon={<BlurOnIcon />} />
             </BottomNavigation>
         </ThemeProvider>);

@@ -16,4 +16,10 @@ async function postSorteo(sorteo){
     return response
 }
 
-export { getSorteos,postSorteo }
+async function putSorteo(ganador){
+    const response = await axios.put(baseURL,ganador)
+
+    return response
+}
+
+export { getSorteos,postSorteo,putSorteo }

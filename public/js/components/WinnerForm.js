@@ -5,25 +5,25 @@ import Box from '@material-ui/core/Box'
 import TextField from '@material-ui/core/TextField'
 import { textTheme } from "./themes/Themes"
 import { ThemeProvider } from '@material-ui/core/styles'
-import { postSorteo } from '../repository/Sorteos'
+import { putSorteo } from '../repository/Sorteos'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import Ganador from '../models/Ganador'
 
-function WinnerForm({ onSubmit,idDraw }) {
-    const [openProgrees, setOpenProgress] = useState(false)
+function WinnerForm({ onSubmit,idDraw}) {
+    const [openProgress, setOpenProgress] = useState(false)
     const [message,setMessage] = useState('')
    
     async function onSubmitClick(event) {
-        if (numero.value) {
-            const ganador = new Ganador(numero.value,idDraw)
+        if (winner.value) {
+            const ganador = new Ganador(Number(winner.value))
             try {
                 setOpenProgress(true)
-                const { status } = await postGanador(ganador)
+                const { status } = await putSorteo(ganador)
                 setOpenProgress(false)
                 setMessage('Se agrego el numero ganador')
                 onSubmit(false)
             } catch (err) {
-                console.log('error submit winner')
+                console.log(err)
             }
         }
     }
@@ -32,7 +32,7 @@ function WinnerForm({ onSubmit,idDraw }) {
         <form className="usersSubmit">
             <ThemeProvider theme={textTheme}>
                 <Box mt={1}>
-                   <TextField id="idDraw" type="hidden" value={idDraw} />
+                   <TextField id="drawId" type="hidden" value={idDraw} />
                     <Box display="flex" flexDirection="column" mt={1}>
                         <TextField id="winner" name="winner" label="Numero ganador" variant="filled" required />
                     </Box>

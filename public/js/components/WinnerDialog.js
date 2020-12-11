@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
 });
-function WinnerDialog({handleClose, open,onSubmit,idDraw}) {
+function WinnerDialog({handleClose, open,onSubmit,idDraw,dateDraw}) {
     const classes = useStyles();
     
     
@@ -46,7 +46,7 @@ function WinnerDialog({handleClose, open,onSubmit,idDraw}) {
                         </Toolbar>
                     </AppBar>
                     <Box display="flex" justifyContent="center" alignItems="center" height="100%" >
-                        <WinnerForm onSubmit={onSubmit} idDraw={idDraw}/>
+                        <WinnerForm onSubmit={onSubmit} idDraw={idDraw} date={dateDraw}/>
                     </Box>
                 </ThemeProvider>
             </Dialog>
