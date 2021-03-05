@@ -3,6 +3,4 @@ dist
 github
 .cache
 .github
-.firebaserc
-firebase.json
 package-lock.json
