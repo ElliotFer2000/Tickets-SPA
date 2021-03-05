@@ -1,29 +1,4 @@
-:root {
-    --primary: navy;
-    --link-font-size: 16px;
-}
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-label {
-    display: block;
-    margin-top: 5px;
-}
-
-input,
-select {
-    margin-top: 9px;
-    width: 200px;
-}
-
-button {
-    margin-top: 10px;
-    padding: 10px 20px;
-}
 
 
 h1,
@@ -32,23 +7,21 @@ h3,
 h4,
 h5,
 h6 {
-    font-family: 'Abril Fatface', cursive;
+    font-family: 'Arvo',serif;
     margin: 0;
-    font-size: 32px;
-
+    font-size: 35px;
+    line-height: 1.5;
+    font-weight: 400;
 }
 
-p,label,input,textarea,button,select,a,td,th,span{
-    font-family: 'Prompt', sans-serif;
-    font-size: 16px;
+button{
+    font-family: 'Arvo',serif;
+    font-weight: 400;
 }
 
-p{
-    margin-bottom: 15px;
-    margin-top: 15px;
+p,label,input,textarea,a,span{
+    font-family: 'Roboto', sans-serif;
 }
-
-
 td,
 th {
     padding: 9px;
