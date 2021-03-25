@@ -1,13 +1,10 @@
 import React from "react"
-function Header({subtitle}) {
+function Header({children}) {
     return (
         <header>
             <h1 className="login__heading">
-                Compra numeros de<br />
-                loteria y <br />
-                gana dinero
+                {children}
             </h1>
-            <p className="login__subtitle">{subtitle}</p>
         </header>
     )
 }

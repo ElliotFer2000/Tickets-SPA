@@ -1,37 +1,95 @@
-.login__link{
+.login__link {
     color: map-get($map: $blue, $key: "darken-4")
 }
 
-.login__signIn{
+.login__signIn {
+    @include make-accent;
+}
+
+.login__closeSuccessDialog {
     @include make-accent;
 
-    &:hover{
-        background-color: map-get($map: $blue, $key: "darken-4");
-        color: map-get($map: $shades, $key: "white" );
+}
+
+.login {
+    overflow: hidden;
+}
+
+.login__ticketGroupContainer {
+    display: none;
+}
+
+.login__ticketGroup {
+    margin-top: -45px;
+    height: 130px;
+}
+
+.login__dialogBackground {
+    background-color: rgba($color: #000000, $alpha: 0.3);
+    opacity: 4;
+    height: 100vh;
+    width: 100vw;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    will-change: transform;
+
+    &--open {
+        transform: scale(1);
+    }
+
+    &--close {
+        transform: scale(0);
     }
 }
 
-.login__layout{
-    padding: 16px;
-    display: flex;
-    min-height: 100vh;
-    flex-direction: column;
-    justify-content: space-between;
+.login__successDialog {
+    position: fixed;
+    top: 16px;
+    left: 8px;
+    right: 8px;
+    border: 4px solid black;
 }
 
-@media screen and (min-width: 992px){
-    .login__layout{
+.login__captcha {
+    margin-top: 8px;
+}
+
+.login__layout {
+    @include mobile-bottom-form-layout
+}
+
+.login__backgroundHandTicket{
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%) translateX(36px) rotateZ(-90deg);
+}
+
+
+@media screen and (min-width: 992px) {
+    .login{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .login__layout {
+        @include bottom-form-layout
+    }
+
+    .login__heading {
+        @include form-header
+    }
+
+    .login__ticketGroupContainer {
+        display: flex;
         justify-content: center;
-        max-width: 400px;
-        margin: 0 auto;
     }
 
-    .login__heading{
-        font-size: 50px;
-        text-align: center;
-    }
-
-    .login__subtitle{
-        text-align: center;
+    .login__backgroundHandTicket{
+        position: static;
+        transform: none;
     }
 }

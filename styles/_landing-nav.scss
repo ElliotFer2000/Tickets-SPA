@@ -1,0 +1,22 @@
+
+.landing-nav{
+    display: none;
+}
+@media screen and (min-width: 992px){
+    .landing-nav {
+        display: block;
+        background-color: transparent;
+        box-shadow: none;
+        height: auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    
+        &__link{
+            color: black;
+            display: inline-block;
+            margin-left: 16px;
+            margin-right: 16px;
+        }
+    }
+}

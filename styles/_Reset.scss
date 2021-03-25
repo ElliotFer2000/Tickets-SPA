@@ -1,6 +1,7 @@
 
 
 
+h1 span,
 h1,
 h2,
 h3,
@@ -25,4 +26,8 @@ p,label,input,textarea,a,span{
 td,
 th {
     padding: 9px;
+}
+
+.btn-large:hover{
+    @include make-accent;
 }

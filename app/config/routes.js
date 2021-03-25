@@ -4,12 +4,12 @@ import ProvideAuth from "../../modules/auth/index"
 
 
 
-function AppRouting(props){
+function AppRouting({authService,stringService,RecaptchaVerifier}){
     const {AuthRoutes} = ProvideAuth()
-
+    
     return (
         <Switch>
-            <AuthRoutes/>
+            <AuthRoutes authService={authService} stringService={stringService}  RecaptchaVerifier={RecaptchaVerifier}/>
         </Switch>
     )
 }
