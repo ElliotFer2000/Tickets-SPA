@@ -1,5 +1,5 @@
 import React from "react"
-import ticketGroup from "../../../assets/img/ticket-group.png"
+import ticketGroup from "url:../../../assets/img/ticket-group.png"
 
 function BackgroundTicketGroup(props) {
     return (

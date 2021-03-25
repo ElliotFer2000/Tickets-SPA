@@ -32,8 +32,6 @@ function Login({ authService, stringService, RecaptchaVerifier }) {
     const dispatch = useDispatch()
     const { signInWithPhoneNumber } = actions
 
-    console.log(statusAuth)
-
     useEffect(() => {
         document.title = "Pasá - Login"
     })

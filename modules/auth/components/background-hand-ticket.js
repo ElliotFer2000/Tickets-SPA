@@ -1,5 +1,5 @@
 import React from "react"
-import tickets from "../../../assets/img/tickets.png"
+import tickets from "url:../../../assets/img/tickets.png"
 
 function BackgroundHandTicket(props){
     return (
