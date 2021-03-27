@@ -3,6 +3,7 @@ import React from "react"
 import Login from "../pages/login"
 import ConfirmPhone from "../pages/confirm-number"
 import Home from "../pages/home"
+import Price from "../pages/price"
 function AuthRoutes({authService,stringService,RecaptchaVerifier}) {
 
     return (
@@ -15,6 +16,9 @@ function AuthRoutes({authService,stringService,RecaptchaVerifier}) {
             </Route>
             <Route exact path="/home">
                 <Home authService={authService}/>
+            </Route>
+            <Route exact path="/precio">
+                <Price/>
             </Route>
         </Switch>
     )

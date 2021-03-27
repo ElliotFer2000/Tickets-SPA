@@ -1,18 +1,19 @@
 import React from 'react'
-import Box from '@material-ui/core/Box'
+import monsterLg from "url:../assets/img/monster-lg.gif"
+import monsterMd from "url:../assets/img/monster-md.gif"
+import monsterSm from "url:../assets/img/monster-sm.gif" 
 
+function Loading(props){
 
-function HomePortrait(props){
-
-    return  (<Box display="flex" justifyContent="center" alignItems="center" height="100vh">
-                <img src="HomePortrait-sm.77a8fdba.gif"
-                     srcSet="HomePortrait-lg.8836630f.gif 640w,
-                             HomePortrait-md.1c050355.gif 500w,
-                             HomePortrait-sm.77a8fdba.gif 300w"
+    return  (<div>
+                <img src={monsterSm}
+                     srcSet={monsterLg + "640w," +
+                             monsterMd + "500w," +
+                             monsterSm + "300w"}
                     sizes="(min-width: 720px) 640px,
                            (min-width: 520px) 500px,
                            300px"/>
-             </Box>);
+             </div>);
 }
 
-export default HomePortrait
+export default Loading

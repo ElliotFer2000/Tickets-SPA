@@ -3,6 +3,9 @@ import {Link} from "react-router-dom"
 function LandingNav(props) {
     return (
         <nav className="landing-nav">
+               <Link to="/" className="landing-nav__link">
+                    Inicio
+                </Link>
                 <Link to="/uso" className="landing-nav__link">
                     ¿Como usar la app?
                 </Link>

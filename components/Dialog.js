@@ -9,7 +9,7 @@ function Dialog({ heading, children, open,onConfirm}) {
             <dialog id="modal1" className="login__successDialog" open={open}>
                 <section>
                     <div className="modal-content">
-                        <h1>{heading}</h1>
+                        <h1 className="login__dialogHeading">{heading}</h1>
                         {children}
                     </div>
                     <footer className="modal-footer">

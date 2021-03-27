@@ -59,13 +59,41 @@
     @include mobile-bottom-form-layout();
 }
 
+.login__dialogHeading{
+    font-size: 32px;
+}
+
 .login__backgroundHandTicket{
     position: absolute;
     top: 50%;
     right: 0;
     transform: translateY(-50%) translateX(36px) rotateZ(-90deg);
     opacity: 0.6;
+
+    &--center{
+         display: none;
+         justify-content: center;
+         align-items: flex-end;
+    }
 }
+
+.login__ticketGroupContainer{
+    display: none;
+}
+
+.login__heading{
+    font-size: 36px;
+}
+
+
+.login__ticket-1{
+    transform: rotate(180deg) translateX(-50px);
+}
+
+.login__ticket-2{
+    transform: rotate(180deg) translateX(50px);
+}
+
 
 
 @media screen and (min-width: 992px) {
@@ -74,24 +102,37 @@
         flex-direction: column;
         justify-content: space-between;
         align-items: center;
-    }
+
+        &__heading{
+            text-align: center;
+            font-size: 56px;
+        }
+
+        &__layout {
+            @include bottom-form-layout();
+        }
+
+        &__ticketGroupContainer {
+            display: flex;
+            justify-content: center;
+        }
     
-    .login__layout {
-        @include bottom-form-layout();
+        &__backgroundHandTicket{
+            position: static;
+            transform: none;
+            opacity: 1;
+    
+            &--center{
+                display: flex;
+            }
+        }
+
+        &__form{
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
     }
 
-    .login__heading {
-        @include form-header();
-    }
-
-    .login__ticketGroupContainer {
-        display: flex;
-        justify-content: center;
-    }
-
-    .login__backgroundHandTicket{
-        position: static;
-        transform: none;
-        opacity: 1;
-    }
 }
+

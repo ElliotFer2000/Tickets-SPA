@@ -8,7 +8,7 @@ function auth(firebase) {
         getCurrentUser,
         finishSignIn,
         signOut
-    })
+    });
 
     async function signInWithPhoneNumber(phoneNumber, phoneVerifier) {
         const confirmationResult = await firebase.auth().signInWithPhoneNumber(`+505${phoneNumber}`, phoneVerifier)

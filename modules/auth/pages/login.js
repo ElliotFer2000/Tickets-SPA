@@ -5,11 +5,13 @@ import LandingNav from "../components/landing-nav"
 import BackgroundTicketGroup from "../components/background-ticket-group"
 import BackgroundHandTicket from "../components/background-hand-ticket"
 import LoginForm from "../components/login-form"
+import LandingFooter from "../components/landing-footer"
 import { useSelector, useDispatch } from "react-redux"
 import { selectAuth, actions, signInWithPhoneNumber } from "../actions/authSlice"
 import React, { useEffect, useState } from "react"
 import { Redirect } from "react-router-dom"
 import eventsAuthService from "../config/ui-events"
+import HelpMessage from '../components/help-message';
 
 
 
@@ -114,20 +116,21 @@ function Login({ authService, stringService, RecaptchaVerifier }) {
 
     return (
         <>
-            <BackgroundTicketGroup />
             <LandingNav />
             <section className="login">
                 <div className="login__layout">
                     <Header>
-                        {<span>Compra  boletos  {<br />}online para  tus {<br />} eventos </span>}
+                        {<>Compra  boletos  {<br />}online para  tus {<br />} eventos </>}
                     </Header>
                     <LoginForm valid={valid} onChangePhone={onChangePhone} onSubmit={onSubmit} disabledForm={disabledForm} phoneField={phoneField} />
+                   
                 </div>
                 <Dialog heading={modalContent.heading} open={openDialog} onConfirm={onConfirmModal}>
                     <p>{modalContent.content}</p>
                 </Dialog>
-                <BackgroundHandTicket />
+                
             </section>
+            <LandingFooter/>
         </>
     );
 

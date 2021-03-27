@@ -1,10 +1,16 @@
 import React from "react"
 import tickets from "url:../../../assets/img/tickets.png"
+import ticketGroup from "url:../../../assets/img/ticket-group.png"
 
-function BackgroundHandTicket(props){
+function BackgroundHandTicket({ alignment }) {
+
     return (
         <>
-            <img src={tickets} aria-hidden="true" className="login__backgroundHandTicket"/>
+            <div className={(alignment === "center" ? "login__backgroundHandTicket--center" : "")}>
+                <img src={ticketGroup} aria-hidden="true" className="login__ticket-1"/>
+                <img src={tickets} aria-hidden="true" className="login__backgroundHandTicket" />
+                <img src={ticketGroup} aria-hidden="true" className="login__ticket-2"  />
+            </div>
         </>
     );
 }

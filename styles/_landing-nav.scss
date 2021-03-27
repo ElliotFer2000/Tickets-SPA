@@ -12,7 +12,6 @@
         flex-shrink: 0;
         margin-left: 16px;
         margin-right: 16px;
-        line-height: 1;
     }
 }
 
@@ -21,7 +20,9 @@
         height: auto;
         justify-content: center;
         align-items: center;
-        flex-shrink: initial;
+       
+        margin-top: 32px;
+        margin-bottom: 32px;
     
         &__link{
             display: inline-block;

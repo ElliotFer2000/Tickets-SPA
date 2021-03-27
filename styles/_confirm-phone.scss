@@ -10,8 +10,4 @@
     .confirm__layout{
         @include bottom-form-layout
     }
-
-    .confirm__heading{
-        @include form-header
-    }
 }

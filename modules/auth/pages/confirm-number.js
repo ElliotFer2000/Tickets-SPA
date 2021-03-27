@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from "react"
 import ConfirmForm from "../components/confirm-form"
-import BackgroundTicketGroup from "../components/background-ticket-group"
-import BackgroundHandTicket from "../components/background-hand-ticket"
 import LandingNav from "../components/landing-nav"
+import LandingFooter from "../components/landing-footer"
 import Header from "../components/header"
 import Dialog from "../../../components/Dialog"
-import truncateString from "../lib/truncateString"
 import { useSelector, useDispatch } from "react-redux"
-import { selectAuth, selectSession, actions } from "../actions/authSlice"
+import { selectAuth, actions } from "../actions/authSlice"
 import { Redirect } from "react-router-dom"
 import eventsAuthService from "../config/ui-events"
 function ConfirmPhone({ authService, stringService }) {
@@ -117,22 +115,21 @@ function ConfirmPhone({ authService, stringService }) {
 
     return (
         <>
-            <BackgroundTicketGroup />
             <LandingNav />
             <section className="login">
                 <div className="login__layout">
                     <Header>
-                        {<span>
-                            {<span>Inserta codigo{<br />}  para confirmar{<br />} cuenta</span>}
-                        </span>}
+                        {
+                          <>Inserta codigo{<br />}  para confirmar{<br />} cuenta</>
+                        }
                     </Header>
                     <ConfirmForm onChangeConfirm={onChangeConfirm} onSubmit={onSubmit} valid={valid} confirmationCode={confirmationCode} disabledForm={disabledForm} />
                 </div >
                 <Dialog heading={modalContent.heading} open={openDialog} onConfirm={onConfirmModal}>
                     <p>{modalContent.content}</p>
                 </Dialog>
-                <BackgroundHandTicket />
             </section >
+            <LandingFooter/>
         </>
     )
 }
