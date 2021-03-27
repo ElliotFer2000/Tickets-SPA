@@ -12,6 +12,7 @@ import React, { useEffect, useState } from "react"
 import { Redirect } from "react-router-dom"
 import eventsAuthService from "../config/ui-events"
 import HelpMessage from '../components/help-message';
+import Logo from "../../../components/Logo"
 
 
 

@@ -7,9 +7,9 @@ function Loading(props){
 
     return  (<div>
                 <img src={monsterSm}
-                     srcSet={monsterLg + "640w," +
-                             monsterMd + "500w," +
-                             monsterSm + "300w"}
+                     srcSet={monsterLg + " 640w," +
+                             monsterMd + " 500w," +
+                             monsterSm + " 300w"}
                     sizes="(min-width: 720px) 640px,
                            (min-width: 520px) 500px,
                            300px"/>

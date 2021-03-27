@@ -7,13 +7,16 @@ function LandingFooter(props) {
             <BackgroundHandTicket alignment="center"/>
             <footer className="landing-footer__background">
                 <p className="landing-footer__corporateName">Pasá</p>
-                <p>Para escribir cualquier duda acerca de la aplicacion, los siguientes medios estan disponibles: </p>
-                <dl>
-                    <dt>Telefono</dt>
-                    <dd>+505 84200478</dd>
-                    <dt>Correo Electronico</dt>
-                    <dd>soporte.pasa@gmail.com</dd>
-                </dl>
+                <p>Puedes contactar con Pasá por los siguientes medios: </p>
+                
+                <ul>
+                    <li>
+                        <span className="material-icons">phone </span> +505 84200478
+                    </li>
+                    <li>
+                        <span className="material-icons">email </span> soporte.pasa@gmail.com
+                    </li>
+                </ul>
             </footer>
         </div>
 

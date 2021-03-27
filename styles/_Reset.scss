@@ -11,9 +11,21 @@ h1{
     font-weight: 400;
 }
 
+.full-height{
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
 button{
     font-family: 'Arvo',serif;
     font-weight: 400;
+}
+
+li span{
+    vertical-align: bottom;
 }
 
 p,label,input,textarea,a,span{

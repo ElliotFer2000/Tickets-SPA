@@ -4,6 +4,7 @@ import {Redirect} from "react-router-dom"
 import { selectPhoneNumber,selectAuth,actions} from "../actions/authSlice"
 import { useSelector,useDispatch } from "react-redux"
 import eventsAuthService from "../config/ui-events"
+import Loading from "../../../components/Loading"
 
 function Home({ authService }) {
     const uiEventsAuthService = eventsAuthService()
@@ -57,9 +58,13 @@ function Home({ authService }) {
     }
     
     return (
-        <div>
-            <Button clickHandler={onSignOutClicked}/>
-            <h1>Hello, your phone is {phoneNumber} </h1>
+        <div className="full-height">
+            
+            
+            <Button clickHandler={onSignOutClicked} text="Cerrar Sesion"/>  
+
+            <p>La aplicacion aun esta en construccion, se va a inaugurar el 26/08/2021</p>
+            
         </div>
     )
 }
