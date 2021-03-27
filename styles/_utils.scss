@@ -1,0 +1,21 @@
+@mixin make-accent(){
+    background-color: map-get($map: $light-green, $key: "accent-4" );
+    color: map-get($map: $grey, $key: "darken-4");
+}
+
+@mixin mobile-bottom-form-layout(){
+    padding: 16px;
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+@mixin bottom-form-layout(){
+    justify-content: center;
+    max-width: 500px;
+    margin: 0 auto;
+    min-height: calc(100vh - 355px);
+    padding: 32px;
+}
+

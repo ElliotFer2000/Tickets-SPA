@@ -1,0 +1,22 @@
+.landing-footer{
+    color: white;
+
+    &__background{
+      padding-bottom: 64px;
+      padding-top: 64px;
+      padding-left: 16px;
+      padding-right: 16px;
+      background-color: #30DF21;
+    }
+}
+
+.landing-footer__corporateName{
+  font-size: 32px;
+}
+
+@media screen and(min-width: 992px){
+  .landing-footer__background{
+    padding-left: 32px;
+    padding-right: 32px;
+  }
+}

@@ -1,0 +1,13 @@
+.confirm__layout{
+    @include mobile-bottom-form-layout
+}
+
+.confirm__submit{
+    @include make-accent;
+}
+
+@media screen and (min-width: 992px){
+    .confirm__layout{
+        @include bottom-form-layout
+    }
+}

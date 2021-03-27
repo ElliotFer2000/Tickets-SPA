@@ -1,0 +1,138 @@
+.login__link {
+    color: #181581;
+}
+
+.login__signIn {
+    @include make-accent();
+}
+
+.login__closeSuccessDialog {
+    @include make-accent();
+}
+
+.login {
+    overflow: hidden;
+}
+
+.login__ticketGroupContainer {
+    display: none;
+}
+
+.login__ticketGroup {
+    margin-top: -45px;
+    height: 130px;
+}
+
+.login__dialogBackground {
+    background-color: rgba($color: #000000, $alpha: 0.3);
+    opacity: 4;
+    height: 100vh;
+    width: 100vw;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    will-change: transform;
+
+    &--open {
+        transform: scale(1);
+    }
+
+    &--close {
+        transform: scale(0);
+    }
+}
+
+.login__successDialog {
+    position: fixed;
+    top: 16px;
+    left: 8px;
+    right: 8px;
+    border: 4px solid black;
+}
+
+.login__captcha {
+    margin-top: 8px;
+}
+
+.login__layout {
+    @include mobile-bottom-form-layout();
+}
+
+.login__dialogHeading{
+    font-size: 32px;
+}
+
+.login__backgroundHandTicket{
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%) translateX(36px) rotateZ(-90deg);
+    opacity: 0.6;
+
+    &--center{
+         display: none;
+         justify-content: center;
+         align-items: flex-end;
+    }
+}
+
+.login__ticketGroupContainer{
+    display: none;
+}
+
+.login__heading{
+    font-size: 36px;
+}
+
+
+.login__ticket-1{
+    transform: rotate(180deg) translateX(-50px);
+}
+
+.login__ticket-2{
+    transform: rotate(180deg) translateX(50px);
+}
+
+
+
+@media screen and (min-width: 992px) {
+    .login{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+
+        &__heading{
+            text-align: center;
+            font-size: 56px;
+        }
+
+        &__layout {
+            @include bottom-form-layout();
+        }
+
+        &__ticketGroupContainer {
+            display: flex;
+            justify-content: center;
+        }
+    
+        &__backgroundHandTicket{
+            position: static;
+            transform: none;
+            opacity: 1;
+    
+            &--center{
+                display: flex;
+            }
+        }
+
+        &__form{
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    }
+
+}
+

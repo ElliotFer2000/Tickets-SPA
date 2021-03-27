@@ -1,6 +1,9 @@
-# Loto-SPA
+# Events ticket store app
 
-Single page application to buy and sell lottery numbers.
+<p>
+    Single page application to sell and buy tickets for events.
+</p>
+
 
 
 
