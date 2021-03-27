@@ -1,8 +1,9 @@
-# Events ticket store App
+# Events ticket store app
 
 <p>
-    Single page app to buy tickets for user created events.
+    Single page application to sell and buy tickets for events.
 </p>
+
 
 
 
