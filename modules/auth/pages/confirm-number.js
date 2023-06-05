@@ -43,7 +43,7 @@ function ConfirmPhone({ authService, stringService }) {
         setDisabledForm(true)
         if (valid) {
             try {
-                const userCredential = await uiEventsAuthService.onSubmitConfirmPhone(valid, authService, "232323")
+                const userCredential = await uiEventsAuthService.onSubmitConfirmPhone(valid, authService, confirmationCode)
 
                 if (userCredential) {
                     dispatch(signInWithPhoneNumber({ status: 1, session: 'There are', phoneNumber: userCredential.user.phoneNumber }))
@@ -64,6 +64,14 @@ function ConfirmPhone({ authService, stringService }) {
                         setContentDialog({
                             heading: 'Error de red',
                             content: 'Verifica que tengas accesso a internet'
+                        });
+                    }
+
+                    default:{
+                        setOpenDialog(true)
+                        setContentDialog({
+                            heading: 'Tiempo de espera agotado',
+                            content: 'Haz el registro nuevamente'
                         });
                     }
                 }

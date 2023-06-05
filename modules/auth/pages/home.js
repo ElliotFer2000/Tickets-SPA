@@ -62,8 +62,6 @@ function Home({ authService }) {
             
             
             <Button clickHandler={onSignOutClicked} text="Cerrar Sesion"/>  
-
-            <p>La aplicacion aun esta en construccion, se va a inaugurar el 26/08/2021</p>
             
         </div>
     )

@@ -1,6 +1,6 @@
 import React from "react"
-import tickets from "url:../../../assets/img/tickets.png"
-import ticketGroup from "url:../../../assets/img/ticket-group.png"
+import tickets from "../../../assets/img/tickets.png"
+import ticketGroup from "../../../assets/img/ticket-group.png"
 
 function BackgroundHandTicket({ alignment }) {
 

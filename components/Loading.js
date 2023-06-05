@@ -1,7 +1,7 @@
 import React from 'react'
-import monsterLg from "url:../assets/img/monster-lg.gif"
-import monsterMd from "url:../assets/img/monster-md.gif"
-import monsterSm from "url:../assets/img/monster-sm.gif" 
+import monsterLg from "../assets/img/monster-lg.gif"
+import monsterMd from "../assets/img/monster-md.gif"
+import monsterSm from "../assets/img/monster-sm.gif" 
 
 function Loading(props){
 
