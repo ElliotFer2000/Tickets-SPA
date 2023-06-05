@@ -4,6 +4,11 @@ import Login from "../pages/login"
 import ConfirmPhone from "../pages/confirm-number"
 import Home from "../pages/home"
 import Price from "../pages/price"
+import About from "../pages/about"
+import Terms from "../pages/terminos"
+import Use from "../pages/use"
+import NotFound from "../pages/notfound"
+
 function AuthRoutes({authService,stringService,RecaptchaVerifier}) {
 
     return (
@@ -19,6 +24,18 @@ function AuthRoutes({authService,stringService,RecaptchaVerifier}) {
             </Route>
             <Route exact path="/precio">
                 <Price/>
+            </Route>
+            <Route exact path="/acerca">
+                <About />
+            </Route>
+            <Route exact path="/terminos">
+                <Terms />
+            </Route>
+            <Route exact path="/uso">
+                <Use />
+            </Route>
+            <Route path="*">
+                <NotFound />
             </Route>
         </Switch>
     )

@@ -2,11 +2,11 @@ import React from "react"
 import LandingNav from "../components/landing-nav"
 import LandingFooter from "../components/landing-footer"
 
-function Use(props) {
+function Terms(props) {
   return (
     <>
       <LandingNav />
-        <h1 className="container important-heading">Como usar la app</h1>
+        <h1 className="container important-heading">Terminos y Condiciones</h1>
 
         <div className="container">
             <p>
@@ -19,4 +19,4 @@ function Use(props) {
   )
 }
 
-export default Use;
+export default Terms;
